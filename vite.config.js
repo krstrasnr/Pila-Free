@@ -6,11 +6,11 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
-    allowedHosts: ['pila-free.onrender.com', 'all'],
+    allowedHosts: ['pila-free.onrender.com', 'pila-free-matv.onrender.com'],
   },
   preview: {
     host: '0.0.0.0',
     port: process.env.PORT ? parseInt(process.env.PORT) : 4173,
-    allowedHosts: ['pila-free.onrender.com', 'all'],
+    allowedHosts: ['pila-free.onrender.com', 'pila-free-matv.onrender.com'],
   },
 });
