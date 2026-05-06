@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppProvider } from './context/AppContext';
 import StudentView from './components/StudentView';
 import AdminView from './components/AdminView';
@@ -8,6 +8,37 @@ import { ChevronRightIcon } from './components/Icons';
 import './App.css';
 import healthServicesLogo from '../hs-logo.png';
 import pcuMainImage from '../PCU-main.jpg';
+
+const APP_SESSION_KEY = 'pila-free-session';
+
+function readStoredSession() {
+  if (typeof window === 'undefined') {
+    return {
+      role: null,
+      staffAuthed: false,
+      studentAuthed: false,
+      studentEmail: '',
+    };
+  }
+
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(APP_SESSION_KEY) || '{}');
+
+    return {
+      role: parsed.role === 'student' || parsed.role === 'admin' ? parsed.role : null,
+      staffAuthed: Boolean(parsed.staffAuthed),
+      studentAuthed: Boolean(parsed.studentAuthed),
+      studentEmail: typeof parsed.studentEmail === 'string' ? parsed.studentEmail : '',
+    };
+  } catch {
+    return {
+      role: null,
+      staffAuthed: false,
+      studentAuthed: false,
+      studentEmail: '',
+    };
+  }
+}
 
 function AppLogo() {
   return (
@@ -20,10 +51,20 @@ function AppLogo() {
 }
 
 export default function App() {
-  const [role, setRole] = useState(null);
-  const [staffAuthed, setStaffAuthed] = useState(false);
-  const [studentAuthed, setStudentAuthed] = useState(false);
-  const [studentEmail, setStudentEmail] = useState('');   // track student email
+  const storedSession = readStoredSession();
+  const [role, setRole] = useState(storedSession.role);
+  const [staffAuthed, setStaffAuthed] = useState(storedSession.staffAuthed);
+  const [studentAuthed, setStudentAuthed] = useState(storedSession.studentAuthed);
+  const [studentEmail, setStudentEmail] = useState(storedSession.studentEmail);
+
+  useEffect(() => {
+    window.localStorage.setItem(APP_SESSION_KEY, JSON.stringify({
+      role,
+      staffAuthed,
+      studentAuthed,
+      studentEmail,
+    }));
+  }, [role, staffAuthed, studentAuthed, studentEmail]);
 
   // reset everything on logout / back to landing
   const handleReturnToLanding = () => {

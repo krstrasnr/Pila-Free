@@ -30,9 +30,16 @@
 }
 
 
-html { scroll-behavior: smooth; }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
+  margin: 0;
   font-family: 'DM Sans', sans-serif;
   background: var(--off-white);
   color: var(--text);
