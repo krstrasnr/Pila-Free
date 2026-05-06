@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from 'firebase/auth';
+import healthServicesLogo from '../../hs-logo.png';
 
 // ─── EMAIL VALIDATOR ─────────────────────────────────────────
 function isValidEmail(email) {
@@ -106,7 +107,7 @@ export default function StaffAuth({ onAuthSuccess, onBack }) {
         <div className="auth-brand">
           <div className="auth-brand-logo">
             <img
-              src="/hs-logo.png"
+              src={healthServicesLogo}
               alt="PCU Health Services Logo"
               width={68} height={80}
               style={{ objectFit: 'contain' }}

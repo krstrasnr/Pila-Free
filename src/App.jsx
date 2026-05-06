@@ -6,11 +6,13 @@ import StaffAuth from './components/StaffAuth';
 import StudentAuth from './components/StudentAuth';   // new
 import { ChevronRightIcon } from './components/Icons';
 import './App.css';
+import healthServicesLogo from '../hs-logo.png';
+import pcuMainImage from '../PCU-main.jpg';
 
 function AppLogo() {
   return (
     <img
-      src="/hs-logo.png"
+      src={healthServicesLogo}
       alt="PCU Health Services Logo"
       className="app-logo-img"
     />
@@ -40,7 +42,7 @@ export default function App() {
           <div
             className="landing-left"
             style={{
-              backgroundImage: 'url("/PCU-main.jpg")',
+              backgroundImage: `url(${pcuMainImage})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center top',
               backgroundRepeat: 'no-repeat',
